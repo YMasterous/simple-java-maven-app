@@ -24,6 +24,7 @@ node {
     stage('Deploy') {
         docker.image('maven:3.8.6-eclipse-temurin-18-alpine').inside('-v /root/.m2:/root/.m2') {
                 sh './jenkins/scripts/deliver.sh'
+				sleep(time: 1, unit: 'MINUTES')
         }
     }
 }
