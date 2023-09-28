@@ -16,6 +16,11 @@ node {
                 junit 'target/surefire-reports/*.xml'
         }
     }
+    stage('Manual Approval') {
+        docker.image('maven:3.8.6-eclipse-temurin-18-alpine').inside('-v /root/.m2:/root/.m2') {
+                input message: 'Lanjutkan ke tahap Deploy?'
+        }
+    }
     stage('Deploy') {
         docker.image('maven:3.8.6-eclipse-temurin-18-alpine').inside('-v /root/.m2:/root/.m2') {
                 sh './jenkins/scripts/deliver.sh'
